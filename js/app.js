@@ -204,7 +204,6 @@ var enemy2=new Enemy(-101,145); allEnemies.push(enemy2);
 var enemy3=new Enemy(-101,228); allEnemies.push(enemy3);
 var enemy4=new Enemy(-101,62); allEnemies.push(enemy4);
 var enemy5=new Enemy(-202,145); allEnemies.push(enemy5);
-var enemy6=new Enemy(-1303,62); allEnemies.push(enemy6);
 
 
 var allFlies = [];
