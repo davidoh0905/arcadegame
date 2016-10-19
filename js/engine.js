@@ -23,10 +23,20 @@ var Engine = (function(global) {
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
+
+        canvasBoard = doc.createElement('canvas'),
+        ctxBoard = canvasBoard.getContext('2d'),
         lastTime;
 
     canvas.width = 505;
+    canvas.height = 63;
+    canvas.id = 'canvasBoard';
+    doc.body.appendChild(canvasBoard);
+
+
+    canvas.width = 505;
     canvas.height = 606;
+    canvas.id = 'playscreen';
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -80,9 +90,39 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+         checkCollisions();
     }
 
+
+function checkCollisions()    {
+    allEnemies.forEach(function(enemy){
+        if ((player.y - enemy.y ) === 10 &&
+            (player.x - enemy.x ) < 60 &&
+            (player.x - enemy.x ) >-50 ) {
+            player.reset();
+    };
+}
+)
+
+    allFlies.forEach(function(fly){
+        if ((player.y - fly.y ) === 10 &&
+            (player.x - fly.x ) < 40 &&
+            (player.x - fly.x ) >-40 ) {
+            player.reset();
+    };
+
+
+
+//     if ((player.x - gem.x) === 10 &&
+//            (player.y - gem.y) === 10 ){
+//                 player.reset();
+//             }
+
+
+    })
+
+
+};
     /* This is called by the update function and loops through all of the
      * objects within your allEnemies array as defined in app.js and calls
      * their update() methods. It will then call the update function for your
@@ -94,7 +134,11 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.update(dt);
         });
+        allFlies.forEach(function(fly) {
+            fly.update(dt);
+        });
         player.update();
+
     }
 
     /* This function initially draws the "game level", it will then call
@@ -150,8 +194,15 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
+        allFlies.forEach(function(fly){
+            fly.render();
+        });
 
         player.render();
+        gem.render();
+        gem.update();
+       // life1.render();
+       // life1.update();
     }
 
     /* This function does nothing but it could have been a good place to
@@ -171,7 +222,13 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-horn-girl.png',
+        'images/fly.png',
+        'images/Gem Green.png',
+        'images/Gem Orange.png',
+        'images/Gem Blue.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
 
